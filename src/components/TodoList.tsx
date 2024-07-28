@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { List } from '@mui/material';
 import { Todo } from '../types';
@@ -12,6 +11,7 @@ interface TodoListProps {
 }
 
 const TodoList: React.FC<TodoListProps> = ({ todos, onEdit, onDelete, onComplete }) => {
+  // Function to play voice note
   const handlePlayVoiceNote = (voiceNote: Blob) => {
     const audioUrl = URL.createObjectURL(voiceNote);
     const audio = new Audio(audioUrl);
@@ -20,6 +20,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, onEdit, onDelete, onComplete
 
   return (
     <List>
+      {/* Map through todos and render TodoItem */}
       {todos.map(todo => (
         <TodoItem
           key={todo.id}
