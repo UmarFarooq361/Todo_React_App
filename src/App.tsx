@@ -1,4 +1,3 @@
-  
 import React, { useState } from 'react';
 import { Container, Box, AppBar, Toolbar, Typography, IconButton, Fab, TextField, InputAdornment } from '@mui/material';
 import { Add, Search } from '@mui/icons-material';
@@ -15,18 +14,22 @@ const App: React.FC = () => {
   const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Add a new todo
   const handleAddTodo = (todo: Omit<Todo, 'id' | 'completed'>) => {
     addTodo(todo);
   };
 
+  // Update an existing todo
   const handleUpdateTodo = (todo: Todo) => {
     updateTodo(todo);
   };
 
+  // Delete a todo
   const handleDeleteTodo = (id: string) => {
     deleteTodo(id);
   };
 
+  // Mark a todo as completed or not completed
   const handleCompleteTodo = (id: string) => {
     const todo = todos.find(todo => todo.id === id);
     if (todo) {
@@ -34,6 +37,7 @@ const App: React.FC = () => {
     }
   };
 
+  // Handle search input change
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
@@ -54,68 +58,68 @@ const App: React.FC = () => {
         }}
       >
         <AppBar position="static" color="transparent">
-      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', position: 'relative' }}>
-        {/* Title */}
-        <Typography variant="h6" component="div">
-          Todo App
-        </Typography>
+          <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', position: 'relative' }}>
+            {/* Title */}
+            <Typography variant="h6" component="div">
+              Todo App
+            </Typography>
 
-        {/* Centered Add Button */}
-        <Fab
-          color="primary"
-          aria-label="add"
-          onClick={() => setAddDialogOpen(true)}
-          sx={{
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)', // Center the button
-            zIndex: 1, // Ensure the button is above other elements
-          }}
-        >
-          <Add />
-        </Fab>
+            {/* Centered Add Button */}
+            <Fab
+              color="primary"
+              aria-label="add"
+              onClick={() => setAddDialogOpen(true)}
+              sx={{
+                position: 'absolute',
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%)', // Center the button
+                zIndex: 1, // Ensure the button is above other elements
+              }}
+            >
+              <Add />
+            </Fab>
 
-        {/* Search Box and Icon */}
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <TextField
-            size="small"
-            variant="outlined"
-            placeholder="Search"
-            value={searchQuery}
-            onChange={handleSearchChange}
-            sx={{
-              width: { xs: '100px', sm: '120px', md: '150px' }, // Responsive width
-              backgroundColor: 'white',
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '10px',
-                '& fieldset': {
-                  borderColor: 'transparent',
-                },
-                '&:hover fieldset': {
-                  borderColor: 'transparent',
-                },
-                '&.Mui-focused fieldset': {
-                  borderColor: 'transparent',
-                },
-              },
-              '& .MuiInputBase-input': {
-                color: '#000',
-              },
-            }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton edge="end" color="inherit">
-                    <Search sx={{ color: '#000' }} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Box>
-      </Toolbar>
-    </AppBar>
+            {/* Search Box and Icon */}
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <TextField
+                size="small"
+                variant="outlined"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                sx={{
+                  width: { xs: '100px', sm: '120px', md: '150px' }, // Responsive width
+                  backgroundColor: 'white',
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '10px',
+                    '& fieldset': {
+                      borderColor: 'transparent',
+                    },
+                    '&:hover fieldset': {
+                      borderColor: 'transparent',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: 'transparent',
+                    },
+                  },
+                  '& .MuiInputBase-input': {
+                    color: '#000',
+                  },
+                }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton edge="end" color="inherit">
+                        <Search sx={{ color: '#000' }} />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Box>
+          </Toolbar>
+        </AppBar>
 
         {/* Main Content */}
         <Box sx={{ flex: 1, overflowY: 'auto', paddingTop: '80px' }}>
