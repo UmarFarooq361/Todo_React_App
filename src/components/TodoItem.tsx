@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListItem, ListItemText, IconButton, Box } from '@mui/material';
-import { Edit, Delete, CheckCircle } from '@mui/icons-material';
+import { Edit, Delete, CheckCircle, RadioButtonUnchecked } from '@mui/icons-material';
 import { Todo } from '../types';
 
 interface TodoItemProps {
@@ -15,24 +15,36 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onEdit, onDelete, onComplete,
   return (
     <ListItem
       sx={{
-        backgroundColor: todo.completed ? 'rgba(0, 255, 0, 0.1)' : 'rgba(255, 255, 255, 0.1)',
+        backgroundColor: todo.completed ? 'rgba(0, 255, 10, 0.5)' : 'rgba(255, 255, 255, 0.22)',
         marginBottom: '8px',
-        borderRadius: '4px'
+        borderRadius: '4px',
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'space-between',
+        padding: '8px'
       }}
     >
-      <Box sx={{ flexGrow: 1 }}>
-        <ListItemText primary={todo.title} secondary={todo.description} />
+      <Box sx={{ flexGrow: 1, maxWidth: '70%' }}>
+        <ListItemText 
+          primary={todo.title} 
+          secondary={todo.description}
+          sx={{ whiteSpace: 'pre-wrap', textAlign: 'justify' }}
+        />
         {todo.voiceNote && (
           <IconButton onClick={onPlayVoiceNote}>
             <span role="img" aria-label="play">🔊</span>
           </IconButton>
         )}
       </Box>
-      <IconButton onClick={onComplete}><CheckCircle /></IconButton>
-      <IconButton onClick={onEdit}><Edit /></IconButton>
-      <IconButton onClick={onDelete}><Delete /></IconButton>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <IconButton onClick={onComplete}>
+          {todo.completed ? <CheckCircle /> : <RadioButtonUnchecked />}
+        </IconButton>
+        <IconButton onClick={onEdit}><Edit /></IconButton>
+        <IconButton onClick={onDelete}><Delete /></IconButton>
+      </Box>
     </ListItem>
   );
-};
-
-export default TodoItem;
+}
+  export default TodoItem;
+  
