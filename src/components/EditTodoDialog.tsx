@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Dialog, DialogTitle, DialogContent, TextField, Button, DialogActions } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Dialog, DialogTitle, DialogContent, TextField, Button, DialogActions, Box, Typography } from '@mui/material';
 import { Todo } from '../types';
 import VoiceRecorder from './VoiceRecorder';
 
@@ -11,9 +11,17 @@ interface EditTodoDialogProps {
 }
 
 const EditTodoDialog: React.FC<EditTodoDialogProps> = ({ open, todo, onClose, onUpdate }) => {
-  const [title, setTitle] = useState(todo?.title || '');
-  const [description, setDescription] = useState(todo?.description || '');
-  const [voiceNote, setVoiceNote] = useState<Blob | undefined>(todo?.voiceNote);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [voiceNote, setVoiceNote] = useState<Blob | undefined>(undefined);
+
+  useEffect(() => {
+    if (todo) {
+      setTitle(todo.title);
+      setDescription(todo.description);
+      setVoiceNote(todo.voiceNote);
+    }
+  }, [todo]);
 
   const handleUpdate = () => {
     if (todo) {
@@ -21,6 +29,9 @@ const EditTodoDialog: React.FC<EditTodoDialogProps> = ({ open, todo, onClose, on
       onClose();
     }
   };
+
+  const titleLimit = 60;
+  const descriptionLimit = 300;
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -30,9 +41,12 @@ const EditTodoDialog: React.FC<EditTodoDialogProps> = ({ open, todo, onClose, on
           autoFocus
           margin="dense"
           label="Title"
+          required
           fullWidth
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          inputProps={{ maxLength: titleLimit }}
+          helperText={`${title.length}/${titleLimit} characters`}
         />
         <TextField
           margin="dense"
@@ -40,12 +54,14 @@ const EditTodoDialog: React.FC<EditTodoDialogProps> = ({ open, todo, onClose, on
           fullWidth
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          inputProps={{ maxLength: descriptionLimit }}
+          helperText={`${description.length}/${descriptionLimit} characters`}
         />
         <VoiceRecorder onRecord={(blob) => setVoiceNote(blob)} existingRecording={voiceNote} />
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={handleUpdate}>Update</Button>
+        <Button onClick={handleUpdate} disabled={!title.trim()}>Update</Button>
       </DialogActions>
     </Dialog>
   );

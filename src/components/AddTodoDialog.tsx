@@ -22,6 +22,9 @@ const AddTodoDialog: React.FC<AddTodoDialogProps> = ({ open, onClose, onAdd }) =
     onClose();
   };
 
+  const titleLimit = 60;
+  const descriptionLimit = 300;
+  
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Add Todo</DialogTitle>
@@ -30,11 +33,14 @@ const AddTodoDialog: React.FC<AddTodoDialogProps> = ({ open, onClose, onAdd }) =
           autoFocus
           margin="dense"
           label="Title"
+          required
           type="text"
           fullWidth
           variant="standard"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          inputProps={{ maxLength: titleLimit }}
+          helperText={`${title.length}/${titleLimit} characters`}
         />
         <TextField
           margin="dense"
@@ -44,12 +50,14 @@ const AddTodoDialog: React.FC<AddTodoDialogProps> = ({ open, onClose, onAdd }) =
           variant="standard"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          inputProps={{ maxLength: descriptionLimit }}
+          helperText={`${description.length}/${descriptionLimit} characters`}
         />
         <VoiceRecorder onRecord={(blob) => setVoiceNote(blob)} />
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={handleAdd}>Add</Button>
+        <Button onClick={handleAdd} disabled={!title.trim()}>Add</Button>
       </DialogActions>
     </Dialog>
   );
