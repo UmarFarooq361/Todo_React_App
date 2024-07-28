@@ -1,4 +1,4 @@
-
+  
 import React, { useState } from 'react';
 import { Container, Box, AppBar, Toolbar, Typography, IconButton, Fab, TextField, InputAdornment } from '@mui/material';
 import { Add, Search } from '@mui/icons-material';
@@ -39,7 +39,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="sm">
       <Box
         sx={{
           backgroundColor: '#103030',
@@ -85,7 +85,7 @@ const App: React.FC = () => {
             value={searchQuery}
             onChange={handleSearchChange}
             sx={{
-              width: { xs: '100px', sm: '150px', md: '200px' }, // Responsive width
+              width: { xs: '100px', sm: '120px', md: '150px' }, // Responsive width
               backgroundColor: 'white',
               '& .MuiOutlinedInput-root': {
                 borderRadius: '10px',
