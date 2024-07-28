@@ -21,8 +21,7 @@ This is a simple To-Do List application built with Vite, React, and TypeScript. 
 - **Material UI**: React component library for fast and easy UI development
 
 
-## Installation
+## Known Issues
+There is a minor issue with the audio component. The voice recording feature might not work as expected. This will be addressed in future updates.
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/UmarFarooq361/Todo_React_App.git
+
